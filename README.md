@@ -29,14 +29,14 @@ Para poder descargar el repositorio necesitamos tener instalado GIT. Podemos des
 
 https://git-scm.com/install/
 
-### 2.2 Instalación de Composer:
+### 2.2. Instalación de Composer:
 
 Para la instalación de dependencias de nuestra API, necesitamos Composer. Se puede descargar desde el enlace:
 
 https://getcomposer.org/download/
 
 
-### 2.1 Instalación de los servidores:
+### 2.3. Instalación de los servidores:
 
 Idealmente, esto debería hacerse con Docker, pero en este caso, para simplificar el desarrollo haremos una instalación en local de wamp (si estás en Windows) o mamp (si estás en mac).
 
