@@ -10,6 +10,8 @@
         "doctrine/dbal": "^4.3",
         "doctrine/doctrine-migrations-bundle": "*",
         "doctrine/orm": "*",
+        "nelmio/cors-bundle": "^2.6",
+        "symfony/apache-pack": "*",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
         "symfony/flex": "^2",

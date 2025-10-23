@@ -14,7 +14,13 @@ doctrine:
         entity_managers:
             default:
                 connection: default
-                auto_mapping: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
 
 when@test:
     doctrine:
