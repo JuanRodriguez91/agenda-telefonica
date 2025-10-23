@@ -64,7 +64,7 @@ cd api
 composer install
 ```
 
-### 3. Instalación de la base de datos:
+### 4. Instalación de la base de datos:
 Para instalar la base de datos, primero tenemos que tener un servidor de bases de datos instalado, configurado (Lo cual se explica en el punto 2).
 
 Una vez instalado el servidor, haz una copia del el fichero [.env.dev](api/.env.dev) (dentro de la carpeta `/api`) en el mismo directorio con nombre `.env.dev.local`.
@@ -80,14 +80,9 @@ DB_USERNAME=(tu usuario)
 DB_PASSWORD=(tu contraseña)
 ```
 
-Puedes comprobar si la conexión está correctamente configurada esta URL:
-
-http://localhost/agenda-telefonica/api/public/
-
-
 Una vez configurada la conexión, crearemos la base de datos y las tablas, esto lo podemos hacer de dos formas:
 
-#### 3.1. O bien lanzando migración de Symfony
+#### 4.1. O bien lanzando migración de Symfony
 
 En la consola de comandos, accede a la raíz del proyecto y ejecuta:
 ```
@@ -100,7 +95,7 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
-#### 3.2. O bien cargando directemente el fichero SQL
+#### 4.2. O bien cargando directemente el fichero SQL
 
 Alternativamente puedes ejecutar [agenda_telefonica.sql](agenda_telefonica.sql) en un cliente de bases de datos como phpMyAdmin, MySQL Workbench, etc.
 
@@ -109,10 +104,15 @@ Posteriormente borramos la caché:
 php bin/console cache:clear
 ```
 
-#### 4. Ejecutar aplicación
+#### 5. Ejecutar aplicación
+
+Antes de ejecutar la aplicación, podemos comprobar si la conexión a la base de datos es correcta visitando este enlace:
+
+http://localhost/agenda-telefonica/api/public/
+
 Si hemos seguido los pasos anteriores correctamente, podremos ejecutar la aplicación desde la URL:
 
 http://localhost/agenda-telefonica/web-app/
 
-(Esta URL será válida siempre que hayamos descargado el repositorio en el directorio raíz de nuestro servidor web)
+_NOTA: Esta URL será válida siempre que hayamos descargado el repositorio en el directorio raíz de nuestro servidor web_
 
