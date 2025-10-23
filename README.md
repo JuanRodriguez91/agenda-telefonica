@@ -19,6 +19,8 @@ Para ejecutar la aplicación necesitamos un servidor web con:
  - `PHP 8.4.0`
  - `MySQL 9.1.0`
 
+También necesitaremos herramientas como **Git** y **Composer**
+
 ### 2. Instalación:
 
 ### 2.1 Instalación de git:
