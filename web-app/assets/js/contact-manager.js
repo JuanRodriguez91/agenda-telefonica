@@ -132,7 +132,11 @@ class ContactManager {
   }
 
   async deleteContact(id, name) {
-    const confirmed = await window.confirmModal.open(`¿Está seguro de que desea eliminar el contacto <strong>${name}<strong>?`);
+    const confirmed = await window.confirmModal.open(
+      `¿Está seguro de que desea eliminar el contacto <strong>${name}</strong>?`,
+      'Sí, eliminar',
+      'Cancelar'
+    );
 
     if (!confirmed) {
       return;

@@ -6,6 +6,7 @@
     --dark-color: #212529;
     --success-color: #4cc9f0;
     --danger-color: #f72585;
+    --error-color: #c10000;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
 }
@@ -273,6 +274,11 @@ body {
     width: 100%;
 }
 
+.btn-submit[disabled] {
+    cursor: wait;
+    opacity: 0.5;
+}
+
 .btn-submit:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -428,4 +434,51 @@ body {
 
 #confirmModal .btn-submit {
     background: linear-gradient(to right, #f72585, #b5179e);
+}
+
+.login-page {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 30px;
+}
+
+.login-page * {
+    flex: 0 0 100%;
+}
+
+.login-page .app-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.login-page .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 30px;
+}
+
+.login-page .message {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--dark-color);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.login-page .login-error {
+    color: var(--error-color);
+    font-size: 1.1rem;
+    font-weight: 600;
 }

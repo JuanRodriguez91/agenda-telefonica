@@ -9,12 +9,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div class="app-container">
+<div class="app-container" style="display: none">
     <header class="app-header">
         <h1 class="app-title">
             <i class="fa-solid fa-address-book"></i>
             Agenda Telefónica
         </h1>
+        <nav class="app-buttons">
+            <span class="user-circle"></span>
+            <button id="btnLogout" title="Cerrar sesión">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </button>
+        </nav>
     </header>
 
     <div class="contacts-container">
@@ -37,6 +43,32 @@
     <button class="floating-btn" id="addContactBtn">
         <i class="fas fa-plus"></i>
     </button>
+</div>
+
+<!-- Página de login -->
+<div class="login-page">
+    <h1 class="app-title">
+        <i class="fa-solid fa-address-book"></i>
+        Agenda Telefónica
+    </h1>
+    <h3 class="message">No hay sesión iniciada o ha expirado</h3>
+    <h2 class="title">Inicia Sesión</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="loginEmail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="loginEmail" maxlength="191" required>
+        </div>
+        <div class="form-group">
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="loginPassword" maxlength="255" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn-submit flex-fill">Iniciar Sesión</button>
+        </div>
+        <div class="form-group">
+            <span class="login-error" id="loginErrorMsg"></span>
+        </div>
+    </form>
 </div>
 
 <!-- Modal para añadir/editar contactos -->
@@ -77,23 +109,24 @@
 <div class="modal-overlay" id="confirmModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Confirmar Eliminación</h2>
+            <h2 class="modal-title">Confirmar</h2>
             <button class="close-btn" id="closeConfirmModalBtn">&times;</button>
         </div>
         <div class="modal-body">
             <div class="text-center py-3">
                 <i class="fas fa-exclamation-triangle text-warning big-icon"></i>
-                <p class="mt-3" id="confirmMessage">¿Está seguro de que desea eliminar este contacto?</p>
+                <p class="mt-3" id="confirmMessage"></p>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn-cancel flex-fill" id="cancelConfirmBtn">Cancelar</button>
-                <button class="btn-submit flex-fill" id="confirmDeleteBtn">Sí, eliminar</button>
+                <button class="btn-cancel flex-fill" id="cancelBtn">Cancelar</button>
+                <button class="btn-submit flex-fill" id="confirmBtn">Sí, eliminar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="assets/js/confirm-modal.js"></script>
+<script src="assets/js/user-auth.js"></script>
 <script src="assets/js/contact-manager.js"></script>
 </body>
 </html>
