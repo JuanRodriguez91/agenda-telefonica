@@ -17,7 +17,7 @@
         </h1>
         <nav class="app-buttons">
             <span class="user-circle"></span>
-            <button id="btnLogout" title="Cerrar sesión">
+            <button class="app-buttons-logout" id="btnLogout" title="Cerrar sesión">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
             </button>
         </nav>
