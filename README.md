@@ -7,10 +7,8 @@
 **Agenda Telefónica** es una aplicación web que permite gestionar los contactos (nombre, email y teléfono). Las acciones que permite realizar son: ver contactos, buscar (por nombre o N.º de teléfono), añadir y eliminar. 
 
 Para hacer la aplicación más escalable se ha dividido en dos partes:
- - **Backend** (carpeta `/api`): Es una API RESTful creada en **PHP** y usando Symfony. Dicha API conecta con una base de datos **MySQL**
+ - **Backend** (carpeta `/api-v2`): Es una API RESTful creada en **PHP** nativo. Dicha API conecta con una base de datos **MySQL**
  - **Frontend** (carpeta `/web-app`): Contiene la aplicación Front que consume la API, desarrollada con **HTML**, **CSS** y **Javascript**
-
-_NOTA: Actualmente, se pueden ver y editar directamente sin un proceso de registro, en la práctica esta app debería tener un sistema de registro y login para que no es pudiera acceder libremente._ 
 
 ## Instrucciones de instalación
 
@@ -19,7 +17,7 @@ Para ejecutar la aplicación necesitamos un servidor web con:
  - `PHP 8.4.0`
  - `MySQL 9.1.0`
 
-También necesitaremos herramientas como **Git** y **Composer**
+También necesitaremos herramientas como **Git**
 
 ### 2. Instalación:
 
@@ -28,12 +26,6 @@ También necesitaremos herramientas como **Git** y **Composer**
 Para poder descargar el repositorio necesitamos tener instalado GIT. Podemos descargarlo en este enlace:
 
 https://git-scm.com/install/
-
-### 2.2. Instalación de Composer:
-
-Para la instalación de dependencias de nuestra API, necesitamos Composer. Se puede descargar desde el enlace:
-
-https://getcomposer.org/download/
 
 
 ### 2.3. Instalación de los servidores:
@@ -56,20 +48,24 @@ Dentro de esa carpeta, descarga el repositorio con el comando:
 git clone https://github.com/JuanRodriguez91/agenda-telefonica.git
 ```
 
-Una vez descargado el proyecto, tenemos que instalar las dependencias de la API, para ello, accedemos a la carpeta `/api` y dentro de ella ejecutamos el comando:
+Selecciona la rama `feature/v2` con el siguiente comando:
 ```
-cd api
+git checkout feature/v2
 ```
-```
-composer install
-```
+
 
 ### 4. Instalación de la base de datos:
 Para instalar la base de datos, primero tenemos que tener un servidor de bases de datos instalado, configurado (Lo cual se explica en el punto 2).
 
-Una vez instalado el servidor, haz una copia del el fichero [.env.dev](api/.env.dev) (dentro de la carpeta `/api`) en el mismo directorio con nombre `.env.dev.local`.
+Una vez instalado el servidor, lanza los comandos:
+```
+cd api-v2
+```
+```
+cp .env.example .env
+```
 
-En `.env.dev.local`, cambia la configuración de la base de datos para que coincida con la de tu servidor:
+En el fichero `.env` que se acaba de crear, cambia la configuración de la base de datos para que coincida con la de tu servidor:
 
 ```
 DB_CONNECTION=mysql
@@ -80,35 +76,14 @@ DB_USERNAME=(tu usuario)
 DB_PASSWORD=(tu contraseña)
 ```
 
-Una vez configurada la conexión, crearemos la base de datos y las tablas, esto lo podemos hacer de dos formas:
+Una vez configurada la conexión, crearemos la base de datos y las tablas ejecutando [agenda_telefonica.sql](agenda_telefonica.sql) en un cliente de bases de datos como phpMyAdmin, MySQL Workbench, etc.
 
-#### 4.1. O bien lanzando migración de Symfony
-
-En la consola de comandos, accede a la raíz del proyecto y ejecuta:
-```
-cd api
-```
-```
-php bin/console doctrine:database:create
-```
-```
-php bin/console doctrine:migrations:migrate
-```
-
-#### 4.2. O bien cargando directemente el fichero SQL
-
-Alternativamente puedes ejecutar [agenda_telefonica.sql](agenda_telefonica.sql) en un cliente de bases de datos como phpMyAdmin, MySQL Workbench, etc.
-
-Posteriormente borramos la caché:
-```
-php bin/console cache:clear
-```
 
 #### 5. Ejecutar aplicación
 
 Antes de ejecutar la aplicación, podemos comprobar si la conexión a la base de datos es correcta visitando este enlace:
 
-http://localhost/agenda-telefonica/api/public/
+http://localhost/agenda-telefonica/api-v2/public/
 
 Si hemos seguido los pasos anteriores correctamente, podremos ejecutar la aplicación desde la URL:
 
