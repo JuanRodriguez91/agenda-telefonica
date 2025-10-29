@@ -40,7 +40,7 @@ https://www.mamp.info/en/release-notes/mac/
 
 Una vez instalados arrancaremos los servidores. 
 
-### 3. Descarga el repositorio:
+### 2.4. Descarga el repositorio:
 Accede a la carpeta raíz de proyectos del servidor instalado (suele ser `C:\wamp64\www` para Wamp y `/Applications/MAMP/htdocs/` para Mamp).
 
 Dentro de esa carpeta, descarga el repositorio con el comando:
@@ -54,8 +54,8 @@ git checkout feature/v2
 ```
 
 
-### 4. Instalación de la base de datos:
-Para instalar la base de datos, primero tenemos que tener un servidor de bases de datos instalado, configurado (Lo cual se explica en el punto 2).
+### 2.5. Instalación de la base de datos:
+Para instalar la base de datos, primero tenemos que tener un servidor de bases de datos instalado, configurado (Lo cual se explica en el punto 2.3.)
 
 Una vez instalado el servidor, lanza los comandos:
 ```
@@ -79,7 +79,7 @@ DB_PASSWORD=(tu contraseña)
 Una vez configurada la conexión, crearemos la base de datos y las tablas ejecutando [agenda_telefonica.sql](agenda_telefonica.sql) en un cliente de bases de datos como phpMyAdmin, MySQL Workbench, etc.
 
 
-#### 5. Ejecutar aplicación
+### 2.6. Ejecutar aplicación
 
 Antes de ejecutar la aplicación, podemos comprobar si la conexión a la base de datos es correcta visitando este enlace:
 
@@ -90,4 +90,18 @@ Si hemos seguido los pasos anteriores correctamente, podremos ejecutar la aplica
 http://localhost/agenda-telefonica/web-app/
 
 _NOTA: Esta URL será válida siempre que hayamos descargado el repositorio en el directorio raíz de nuestro servidor web_
+
+## 3. Credenciales
+
+Para esta prueba hemos creado un usuario con las siguientes credenciales:
+
+**Usuario:**
+```
+admin@admin.com
+```
+
+**Contraseña:**
+```
+admin123
+```
 
