@@ -5,15 +5,25 @@ namespace App\Controller;
 use App\Repository\ContactRepository;
 use App\Entity\Contact;
 use App\Utils\Response;
+use App\Utils\UserSession;
 
 class ContactController extends ApiJsonAbstractController
 {
     private ContactRepository $contactRepository;
+    private UserSession $userSession;
 
     public function __construct()
     {
         parent::__construct();
         $this->contactRepository = new ContactRepository();
+        $this->userSession = new UserSession();
+    }
+
+    private function checkUserSesion(): void
+    {
+        if (!$this->userSession->isLoggedIn()) {
+            $this->json(['message' => 'Acceso no autorizado'], Response::HTTP_FORBIDDEN);
+        }
     }
 
     /**
@@ -22,6 +32,8 @@ class ContactController extends ApiJsonAbstractController
      */
     public function list(): void
     {
+        $this->checkUserSesion();
+
         $contacts = $this->contactRepository->list();
 
         $data = array_map(fn(Contact $c) => [
@@ -42,6 +54,8 @@ class ContactController extends ApiJsonAbstractController
      */
     public function show(int $id): void
     {
+        $this->checkUserSesion();
+
         $contact = $this->contactRepository->find($id);
 
         if (!$contact) {
@@ -64,6 +78,8 @@ class ContactController extends ApiJsonAbstractController
      */
     public function create(): void
     {
+        $this->checkUserSesion();
+
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!$data || !isset($data['name'], $data['phone'], $data['email'])) {
@@ -98,6 +114,8 @@ class ContactController extends ApiJsonAbstractController
      */
     public function update(int $id): void
     {
+        $this->checkUserSesion();
+
         $contact = $this->contactRepository->find($id);
         if (!$contact) {
             $this->json(['message' => 'Contacto no encontrado'], Response::HTTP_NOT_FOUND);
@@ -141,6 +159,8 @@ class ContactController extends ApiJsonAbstractController
      */
     public function delete(int $id): void
     {
+        $this->checkUserSesion();
+
         $contact = $this->contactRepository->find($id);
         if (!$contact) {
             $this->json(['message' => 'Contacto no encontrado'], Response::HTTP_NOT_FOUND);

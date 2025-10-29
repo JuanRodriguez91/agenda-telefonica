@@ -4,7 +4,49 @@ class ContactManager {
     this.isEditing = false;
     this.currentEditId = null;
     this.apiUrl = '../api-v2/public/contacts';
-    this.init();
+    this.isLogged = false;
+
+    this.initLoginObserver();
+    this.updateLoginState();
+  }
+
+  initLoginObserver() {
+    const observer = new MutationObserver(() => this.updateLoginState());
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-is-logged'] });
+  }
+
+  updateLoginState() {
+    const logged = document.body.dataset.isLogged === 'true';
+    if (logged === this.isLogged) return; // No ha cambiado
+    this.isLogged = logged;
+
+    if (this.isLogged) {
+      console.log('Usuario logueado: inicializando ContactManager...');
+      this.init();
+      this.enableUI();
+    } else {
+      console.warn('Usuario no logueado: ContactManager deshabilitado.');
+      this.disableUI();
+    }
+  }
+
+  enableUI() {
+    // Habilitar botones y inputs si es necesario
+    document.getElementById('addContactBtn').disabled = false;
+    document.getElementById('searchInput').disabled = false;
+    // Cargar contactos si no se habían cargado antes
+    if (!this.contacts.length) this.loadContacts();
+  }
+
+  disableUI() {
+    // Cerrar modal si está abierto
+    this.closeModal();
+    // Vaciar lista y mostrar mensaje
+    document.getElementById('contactsList').innerHTML = '';
+    document.getElementById('emptyState').style.display = 'block';
+    // Deshabilitar botones e inputs
+    document.getElementById('addContactBtn').disabled = true;
+    document.getElementById('searchInput').disabled = true;
   }
 
   init() {
@@ -14,6 +56,9 @@ class ContactManager {
 
   setupEventListeners() {
     document.getElementById('addContactBtn').addEventListener('click', () => {
+      if (!this.isLogged) {
+        return;
+      }
       this.openModal();
     });
 
@@ -27,6 +72,9 @@ class ContactManager {
 
     document.getElementById('contactForm').addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!this.isLogged) {
+        return;
+      }
       this.handleFormSubmit();
     });
 
@@ -34,7 +82,6 @@ class ContactManager {
       this.filterContacts(e.target.value);
     });
 
-    // Cerrar modal al hacer clic fuera del contenido
     document.getElementById('contactModal').addEventListener('click', (e) => {
       if (e.target.id === 'contactModal') {
         this.closeModal();
@@ -43,6 +90,10 @@ class ContactManager {
   }
 
   async loadContacts() {
+    if (!this.isLogged) {
+      return;
+    }
+
     try {
       const response = await fetch(this.apiUrl);
       if (!response.ok) {
@@ -57,6 +108,10 @@ class ContactManager {
   }
 
   async handleFormSubmit() {
+    if (!this.isLogged) {
+      return;
+    }
+
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -86,11 +141,13 @@ class ContactManager {
   }
 
   async addContact(contact) {
+    if (!this.isLogged) {
+      return;
+    }
+
     const response = await fetch(this.apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(contact)
     });
 
@@ -107,16 +164,17 @@ class ContactManager {
   }
 
   async updateContact(id, updatedContact) {
+    if (!this.isLogged) {
+      return;
+    }
+
     const response = await fetch(`${this.apiUrl}/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedContact)
     });
 
     const responseData = await response.json();
-
     if (!response.ok) {
       throw new Error(responseData.message);
     }
@@ -132,6 +190,10 @@ class ContactManager {
   }
 
   async deleteContact(id, name) {
+    if (!this.isLogged) {
+      return;
+    }
+
     const confirmed = await window.confirmModal.open(
       `¿Está seguro de que desea eliminar el contacto <strong>${name}</strong>?`,
       'Sí, eliminar',
@@ -161,20 +223,26 @@ class ContactManager {
   }
 
   editContact(id) {
-    const contact = this.contacts.find(contact => contact.id === parseInt(id));
-    if (contact) {
-      document.getElementById('contactId').value = contact.id;
-      document.getElementById('name').value = contact.name;
-      document.getElementById('phone').value = contact.phone;
-      document.getElementById('email').value = contact.email;
-
-      document.getElementById('modalTitle').textContent = 'Editar Contacto';
-      document.getElementById('submitBtn').textContent = 'Actualizar Contacto';
-
-      this.isEditing = true;
-      this.currentEditId = id;
-      this.openModal();
+    if (!this.isLogged) {
+      return;
     }
+
+    const contact = this.contacts.find(contact => contact.id === parseInt(id));
+    if (!contact) {
+      return;
+    }
+
+    document.getElementById('contactId').value = contact.id;
+    document.getElementById('name').value = contact.name;
+    document.getElementById('phone').value = contact.phone;
+    document.getElementById('email').value = contact.email;
+
+    document.getElementById('modalTitle').textContent = 'Editar Contacto';
+    document.getElementById('submitBtn').textContent = 'Actualizar Contacto';
+
+    this.isEditing = true;
+    this.currentEditId = id;
+    this.openModal();
   }
 
   openModal() {

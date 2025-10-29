@@ -105,6 +105,8 @@ class UserAuth {
 
     // Mostrar iniciales del usuario
     this.setUserCircle(userData.name || userData.email);
+
+    this.setBodyLoggedState(true);
   }
 
   showLogin() {
@@ -112,6 +114,8 @@ class UserAuth {
     this.loginPage.style.display = 'block';
     this.loginForm.reset();
     this.setError('');
+
+    this.setBodyLoggedState(false);
   }
 
   setUserCircle(name) {
@@ -124,6 +128,10 @@ class UserAuth {
 
   setError(message) {
     this.loginErrorMsg.textContent = message;
+  }
+
+  setBodyLoggedState(isLogged) {
+    document.body.setAttribute('data-is-logged', isLogged ? 'true' : 'false');
   }
 }
 
