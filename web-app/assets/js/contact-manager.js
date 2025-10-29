@@ -3,7 +3,7 @@ class ContactManager {
     this.contacts = [];
     this.isEditing = false;
     this.currentEditId = null;
-    this.apiUrl = '../api/public/contacts';
+    this.apiUrl = '../api-v2/public/contacts';
     this.init();
   }
 
