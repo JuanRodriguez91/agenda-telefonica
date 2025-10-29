@@ -2,8 +2,8 @@ class ConfirmModal {
   constructor() {
     this.modal = null;
     this.messageElement = null;
-    this.confirmBtn = null;
-    this.cancelBtn = null;
+    this.confirmYesBtn = null;
+    this.confirmNoBtn = null;
     this.closeBtn = null;
 
     this.resolvePromise = null;
@@ -24,11 +24,11 @@ class ConfirmModal {
   setup() {
     this.modal = document.getElementById('confirmModal');
     this.messageElement = document.getElementById('confirmMessage');
-    this.confirmBtn = document.getElementById('confirmBtn');
-    this.cancelBtn = document.getElementById('cancelBtn');
+    this.confirmYesBtn = document.getElementById('confirmYesBtn');
+    this.confirmNoBtn = document.getElementById('confirmNoBtn');
     this.closeBtn = document.getElementById('closeConfirmModalBtn');
 
-    if (!this.modal || !this.messageElement || !this.confirmBtn || !this.cancelBtn || !this.closeBtn) {
+    if (!this.modal || !this.messageElement || !this.confirmYesBtn || !this.confirmNoBtn || !this.closeBtn) {
       console.error('No se pudieron encontrar todos los elementos del modal de confirmación');
       return;
     }
@@ -37,12 +37,12 @@ class ConfirmModal {
   }
 
   setupEventListeners() {
-    this.confirmBtn.addEventListener('click', () => {
+    this.confirmYesBtn.addEventListener('click', () => {
       this.resolve(true);
       this.close();
     });
 
-    this.cancelBtn.addEventListener('click', () => {
+    this.confirmNoBtn.addEventListener('click', () => {
       this.resolve(false);
       this.close();
     });
@@ -71,8 +71,8 @@ class ConfirmModal {
 
   open(message = '¿Está seguro de que desea realizar esta acción?', btnYes = 'Yes', btnNo = 'No') {
     this.messageElement.innerHTML = message;
-    this.confirmBtn.innerHTML = btnYes;
-    this.cancelBtn.innerHTML = btnNo;
+    this.confirmYesBtn.innerHTML = btnYes;
+    this.confirmNoBtn.innerHTML = btnNo;
     this.modal.classList.add('active');
 
     return new Promise((resolve, reject) => {

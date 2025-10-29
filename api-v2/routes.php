@@ -14,7 +14,7 @@ return [
     ['GET', '/contacts/{id}', ContactController::class, 'show'],
     ['POST', '/contacts', ContactController::class, 'create'],
     ['PUT', '/contacts/{id}', ContactController::class, 'update'],
-    ['DELETE', '/contacts/{id}', ContactController::class, 'de..lete'],
+    ['DELETE', '/contacts/{id}', ContactController::class, 'delete'],
 
     // User
     ['POST', '/user/login', UserController::class, 'login'],

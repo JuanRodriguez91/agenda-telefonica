@@ -118,8 +118,8 @@
                 <p class="mt-3" id="confirmMessage"></p>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn-cancel flex-fill" id="cancelBtn">Cancelar</button>
-                <button class="btn-submit flex-fill" id="confirmBtn">Sí, eliminar</button>
+                <button class="btn-cancel flex-fill" id="confirmNoBtn">Cancelar</button>
+                <button class="btn-submit flex-fill" id="confirmYesBtn">Sí, eliminar</button>
             </div>
         </div>
     </div>
